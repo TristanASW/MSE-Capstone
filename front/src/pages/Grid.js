@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import NavBar from "../components/NavBar";
 
-function Page2() {
+function Grid() {
   const [houses, setHouses] = useState([]);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ function Page2() {
 
   return (
     <div>
+      <NavBar/>
       <h1>House Listings</h1>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
         {houses.map((house) => (
@@ -45,4 +47,4 @@ function Page2() {
   );
 }
 
-export default Page2;
+export default Grid;

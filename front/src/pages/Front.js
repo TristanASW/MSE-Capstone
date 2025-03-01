@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import DropdownBox from '../components/Dropdown';
 
-function Page1() {
+function Front() {
   const [neighbourhood, setNeighbourhood] = useState("");
   const [buildingType, setBuildingType] = useState("");
   const [bedrooms, setBedrooms] = useState("");
@@ -15,12 +17,13 @@ function Page1() {
 
     if (neighbourhood && buildingType && bedrooms && bathrooms) {
       try {
-        await axios.post("http://127.0.0.1:8000/submit-form", {
-          neighbourhood,
+        console.log(neighbourhood, buildingType, bedrooms, bathrooms, features);
+        await axios.post("http://127.0.0.1:8000/submit-search", {
+          neighbourhood: neighbourhood,
           building_type: buildingType,
-          bedrooms,
-          bathrooms,
-          features
+          bedrooms: bedrooms,
+          bathrooms: bathrooms,
+          features: features
         });
         navigate("/grid");
       } catch (error) {
@@ -29,15 +32,23 @@ function Page1() {
     }
   };
 
+  //Options for Building Type dropdown
+  const options = ['Apartment', 'Detached', 'Townhouse', 'Villa'];
+
   return (
     <div>
-      <h1>Find a House</h1>
+      <NavBar/>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Neighbourhood"
           value={neighbourhood}
           onChange={(e) => setNeighbourhood(e.target.value)}
+        />
+        <DropdownBox 
+          options={options} 
+          placeholder={"building type"} 
+          setSelectedState={setBuildingType} 
         />
         <select
           value={buildingType}
@@ -53,13 +64,13 @@ function Page1() {
           type="number"
           placeholder="Number of Bedrooms"
           value={bedrooms}
-          onChange={(e) => setBedrooms(e.target.value)}
+          onChange={(e) => setBedrooms(Number(e.target.value))}
         />
         <input
           type="number"
           placeholder="Number of Bathrooms"
           value={bathrooms}
-          onChange={(e) => setBathrooms(e.target.value)}
+          onChange={(e) => setBathrooms(Number(e.target.value))}
         />
         <input
           type="text"
@@ -75,4 +86,4 @@ function Page1() {
   );
 }
 
-export default Page1;
+export default Front;
