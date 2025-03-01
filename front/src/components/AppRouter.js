@@ -1,8 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home";
-import Buyer from "../pages/Buyer";
-import Seller from "../pages/Seller";
 import Front from "../pages/Front";
 import Grid from "../pages/Grid";
 

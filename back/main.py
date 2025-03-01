@@ -14,28 +14,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello from FastAPI!"}
-
-class Item(BaseModel):
-    name: str
-    description: str
-
-@app.get("/api/items/")
-async def get_items():
-    return {"items": [{"name": "Item 1", "description": "Description of item 1"}, 
-                       {"name": "Item 2", "description": "Description of item 2"}]}
-
-@app.post("/api/items/")
-async def create_item(item: Item):
-    return {"message": "Item created successfully!", "item": item}
-
-
-
-
-
-
 
 class House(BaseModel):
     id: int
@@ -53,7 +31,7 @@ class Search(BaseModel):
     bathrooms: int
     building_type: str
     features: str
-    
+
 # Sample house data
 houses = [
     House(id=1, image_url="https://via.placeholder.com/150", location="Neighbourhood 1", bedrooms=3, bathrooms=2, building_type="Apartment", features="Pool, Garage"),
